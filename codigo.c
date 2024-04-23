@@ -3,8 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define maxLineLength 1000
-
+#define linhaMaximo 1000
 
 typedef struct {
     char nome[50];
@@ -28,9 +27,10 @@ int main() {
     if (!entrada) {
         entrada = fopen("DadosEntrada.txt", "r");
         if (!entrada) {
-            printf("não existe arquivo");
-            return 1;}
+            printf("arquivo ausente");
+            return 1;
         }
+    }
 
     FILE *saida = fopen("SituacaoFinal.cvs", "w");
     if (!saida) {
@@ -39,8 +39,8 @@ int main() {
         return 1;
     }
 
-    char linha[maxLineLength];
-    while (fgets(linha, maxLineLength, entrada)) {
+    char linha[linhaMaximo];
+    while (fgets(linha, linhaMaximo, entrada)) {
         Aluno aluno;
         sscanf(linha, "%[^,],%[^,],%[^,],%f,%f", aluno.nome, aluno.telefone, aluno.curso, &aluno.nota1, &aluno.nota2);
         calcularSituacao(&aluno);
@@ -54,4 +54,3 @@ int main() {
 
     return 0;
 }
-
